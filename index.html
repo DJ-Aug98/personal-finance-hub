@@ -540,7 +540,11 @@
             </div>
         </a>
 
-        <!-- Purchasable -->
+    </div>
+
+    <!-- Purchasable Resources -->
+    <div class="section-title" id="purchasableTitle"><span class="icon">&#128176;</span> Purchasable Resources</div>
+    <div class="resources-grid" id="purchasableGrid">
         <a class="resource-card purchasable" href="https://www.ramseysolutions.com/education/foundations-personal-finance-hs" target="_blank"
            data-grades="K-5,6-8,9-12" data-type="purchasable" data-name="Dave Ramsey Foundations in Personal Finance">
             <div class="card-header">
@@ -605,6 +609,8 @@
     function applyFilters() {
         const cards = document.querySelectorAll('.resource-card');
         let visible = 0;
+        let freeVisible = 0;
+        let paidVisible = 0;
 
         cards.forEach(card => {
             const grades = card.dataset.grades || '';
@@ -624,11 +630,15 @@
             if (gradeMatch && searchMatch) {
                 card.style.display = 'flex';
                 visible++;
+                if (type === 'free') freeVisible++;
+                else paidVisible++;
             } else {
                 card.style.display = 'none';
             }
         });
 
+        document.getElementById('purchasableTitle').style.display = paidVisible === 0 ? 'none' : 'flex';
+        document.getElementById('purchasableGrid').style.display = paidVisible === 0 ? 'none' : 'grid';
         document.getElementById('noResults').style.display = visible === 0 ? 'block' : 'none';
     }
 </script>
